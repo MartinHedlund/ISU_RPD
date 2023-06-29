@@ -1,0 +1,312 @@
+﻿@using RPD.Models.BD_Second_model;
+@using RPD.Models.Titul
+@using RPD.ViewModel
+@model RPD.ViewModel.TitulViewModel
+
+  <div>
+       
+
+   </div>
+<div>
+    <form method="post" asp-action="SaveRes" asp-controller="Titul">
+        <div class="row">
+            <div class="col-sm">
+                <input type="checkbox" value="block rp"> Блокировка РП
+            </div>
+        </div>
+       <button asp-action="PrintButt" class="btn btn-success btn-sm">Печать (в разработке)</button>
+        <div class="row">
+            <div class="col-3">
+                <label>Наименование дисциплины (модуля): </label>
+            </div>
+            <div class="col-3">
+                <label>@Model.strokaMmis.NameDiscip</label>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-3">
+                <label>Цикл (раздел) ООП:</label>
+            </div>
+            <div class="col-sm">
+                <label> @Model.strokaMmis.CycleСode</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-3">
+                Трудоемкость (в з.е.):
+            </div>
+            <div class="col-sm">
+                <label>@Model.strokaMmis.ZetFact</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-3">
+                Трудоемкость (в часах):
+            </div>
+            <div class=" col-sm">
+                <label>@Model.strokaMmis.HoursByPlan</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-3">
+                Кафедра:
+            </div>
+            <div class="col-sm">
+                <label>@Model.Titul.NameKaf</label>
+            </div>
+        </div>
+
+        <fieldset>
+            <legend class="rounded">Планы:</legend>
+            
+           @*/////////////////////////*@
+            <div class="accordion" id="accordionExample">
+
+                @foreach (UchPlan PlanProfil in Model.uchPlans)
+                {
+                    
+                    <div class="accordion-item" style="margin:5px">
+                        <h2 class="accordion-header" id="heading@(PlanProfil.uchMmisPlans.Id)">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse@(PlanProfil.uchMmisPlans.Id)" aria-expanded="true" aria-controls="collapse@(PlanProfil.uchMmisPlans.Id)">
+                                @PlanProfil.uchMmisPlans.NameFile
+                            </button>
+                        </h2>
+
+                        <div id="collapse@(PlanProfil.uchMmisPlans.Id)" class="accordion-collapse collapse rounded" aria-labelledby="heading@(PlanProfil.uchMmisPlans.Id)" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <div class="accordion-body">
+
+                                <div class="row">
+                                    <div class="col-3">
+                                        Название учебного плана
+                                    </div>
+                                    <div class=" col-sm">
+                                        <label>@PlanProfil.uchMmisPlans.NameFile</label>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-3">
+                                        Профиль:
+                                    </div>
+                                    <div class=" col-sm">
+                                        <label>@PlanProfil.planProfil.OOP.CodeName </label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-3">
+                                        Направление:
+                                    </div>
+                                    <div class=" col-sm">
+                                        <label>@PlanProfil.uchMmisPlans.Titul</label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-3">
+                                        Год начала подготовки:
+                                    </div>
+                                    <div class=" col-sm">
+                                        <label>@PlanProfil.uchMmisPlans.StartYearPreparation</label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-3">
+                                        Форма обучения:
+                                    </div>
+                                    <div class=" col-sm">
+                                        <label>@PlanProfil.FormStudy</label>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                }
+            </div>
+            @*//////////////////*@
+ 
+        </fieldset>
+
+
+        <br />
+        <h5>Составители:</h5>
+        <div class="row">
+        
+               
+           
+            <div class=" col-4 ">
+                <table style="width: 100%;margin-bottom: 20px;border: 1px solid #dddddd;border-collapse: collapse;" class="iksweb ">
+                    <thead>
+                        <tr  >
+                            <td style="font-weight: bold;padding: 5px;background: #efefef; 	border: 1px solid #dddddd;">
+                                Должность
+                            </td>
+                            <td style="font-weight: bold;padding: 5px;background: #efefef; 	border: 1px solid #dddddd;">ФИО</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var user in Model.userDevs)
+                        {
+                            <tr>
+                                <td style="border: 1px solid #dddddd;	padding: 5px;">
+                                    @user.Position
+                                </td>
+                                <td style="border: 1px solid #dddddd;	padding: 5px;">@user.Fio</td>
+                            </tr>
+                        }
+                        
+                   
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+        <br />
+        <input type="button" class="m-1 btn btn-primary SaveAgree" value="Сохранить" />
+        <h5>Согласование:</h5>
+        <div class="row">
+
+
+
+            <div class=" col-8 ">
+                <table style="width: 100%;margin-bottom: 20px;border: 1px solid #dddddd;border-collapse: collapse;" class="iksweb ">
+                    <thead>
+                        <tr>
+                            <td style="font-weight: bold;padding: 5px;background: #efefef; 	border: 1px solid #dddddd;">
+                                Согласование
+                            </td>
+                            <td style="font-weight: bold;padding: 5px;background: #efefef; 	border: 1px solid #dddddd;">
+                                Наименование подразделения
+                            </td>
+                            <td style="font-weight: bold;padding: 5px;background: #efefef; 	border: 1px solid #dddddd;">
+                                Дата
+
+                            </td>
+                            
+                            <td style="font-weight: bold;padding: 5px;background: #efefef; 	border: 1px solid #dddddd;">
+                                № протокола
+
+                            </td>
+                            
+                            <td style="font-weight: bold;padding: 5px;background: #efefef; 	border: 1px solid #dddddd;">
+                                уч.степень
+                            </td>
+                            
+                            <td style="font-weight: bold;padding: 5px;background: #efefef; 	border: 1px solid #dddddd;">
+                                ФИО
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody >
+                        @for (int i = 0; i < Model.persons.Count; i++)
+                       {
+                            <tr class="PersonAgreement">
+                               <td hidden>
+                                  
+                                    <div class="IdPerson">@Model.persons[i].IdPerson</div>
+                                    <div class="IdDep">@Model.persons[i].IdDepart</div>
+                                    <div class="Type">@Model.persons[i].Type </div>
+                               
+                               </td>
+                                <td style="border: 1px solid #dddddd;	padding: 5px;">
+                                    @if (Model.persons[i].Type == 1 || Model.persons[i].Type == 3)
+                                    {
+                                        @("Одобрена")
+                                    }
+                                    else
+                                    {
+                                        @("Согласована")
+                                        
+                                    }
+                                </td>
+                                <td style="border: 1px solid #dddddd;	padding: 5px;">
+                                    @Model.persons[i].NameInstKafSokr
+                                </td>
+
+                                <td style="border: 1px solid #dddddd;	padding: 5px;">
+                                    <input asp-for="@Model.persons[i].DateApproval" class="form-control DateAgree" type="date" />
+                                </td>
+                                
+                                <td style="border: 1px solid #dddddd;	padding: 5px;">
+                                    <input asp-for="@Model.persons[i].NumberProtocol" class="form-control NumberAgree" type="text" />
+                                </td>
+                                
+                                <td style="border: 1px solid #dddddd;	padding: 5px;">
+                                    @Model.persons[i].UchStepen
+                                    @Model.persons[i].UchZvanie
+                                </td>
+                                
+                                <td style="border: 1px solid #dddddd;	padding: 5px;">
+                                    @Model.persons[i].FIO
+                                </td>
+                            </tr>
+                        }
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+
+    </form>
+    <script src="~/js/Titul.js" asp-append-version="true"></script>
+
+    @if (ViewBag.Message != null)
+    {
+    <script type="text/javascript">
+    window.onload = function() {
+    alert("Данные сохранены");
+    };
+    </script>
+    }
+    <script>
+        window.onload = function(){
+            document.getElementsByClassName("MainPage")[0].style = "background-color: lightgrey;"
+        }
+        function DeleteCompilers() {
+            let rows = document.getElementById("CompilersTable").children;
+            if(rows.length != 2)
+                rows[rows.length - 1].remove();
+        }
+        
+
+        function AddCompilers() {
+            let rows = document.getElementById(`CompilersTable`).children;
+            let i = rows.length - 1;
+
+            let AddNewTheme = document.createElement('tr');
+            code =
+                `
+                    <td><input type="text" name="CompilersModels[${i}].Degree" /></td>
+                        <td>
+                        <select name="CompilersModels[${i}].JobTitle"><option value="">Выберите должность</option>
+                            <option>Нач. вуза</option>
+                            <option>Доцент</option>
+                            <option>Зам. нач</option>
+                            <option>Президент</option>
+                        </select>
+                        </td>
+                    <td><input name="CompilersModels[${i}].Name" /> </td>
+                `
+            AddNewTheme.innerHTML = code;
+            let item = document.querySelector(`.CompilersTable`);
+            item.appendChild(AddNewTheme);
+        }
+    </script>
+</div>
+
+

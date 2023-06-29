@@ -1,0 +1,32 @@
+﻿@using NonFactors.Mvc.Grid
+@using RPD.Models.BD_model.LiterAndRoomAndProgramm;
+@model List<ProductTech>
+<link rel="stylesheet" href="~/css/tablecss.css" asp-append-version="true" />
+@(Html
+    .Grid(Model)
+    .Build(columns =>
+    {
+        columns.Add(model => Html.CheckBox("Check_" + model.Id, model.Cheked)).AppendCss("disablecheck");
+        @*columns.Add().RenderedAs((model, row) => row + 1).Titled("#").Css("text-center");*@
+        columns.Add(model => model.Id).Titled("#").Css("text-center").Filterable(false);
+
+        columns.Add(model => model.Name).Titled("Название").Filterable(GridFilterCase.Lower).UsingDefaultFilterMethod("consists-of");
+        columns.Add(model => model.Description).Titled("Описание").Filterable(GridFilterCase.Lower).UsingDefaultFilterMethod("consists-of");
+
+        columns.Add(model => model.LicenseType).Titled("Тип лицензии");
+
+        //popup part
+        @*columns.Add(model => $"<a  data-modal='' data-id=\"{model.Id}\"     href='PasswordRestUser/{model.Id}'      id=\"ss\"  asp-    action=\"PR\" asp-route-id=\"@item.Id\" class=\"btn     btn-info\" '> PR <span class='glyphicon      glyphicon-user'> </span> </a>").Encoded(false);*@
+
+    })
+    .Id("my-grid")
+    .Using(GridFilterMode.Header)
+    .Empty("No data found")
+    .Filterable()
+    .Css("table")
+    .AppendCss("table-hover")
+    @*.Attributed(new { data_type = "individuals" })*@
+    .Sortable()
+    .Pageable()
+    .RowAttributed(model => new { @onclick = $"ProductTechesClick({model.Id})" })
+    )

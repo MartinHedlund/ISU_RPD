@@ -1,0 +1,91 @@
+﻿@*@using RPD.Models.Mtod
+@using RPD.ViewModel
+@model MtodViewModel
+
+<label>МАТЕРИАЛЬНО-ТЕХНИЧЕСКОЕ ОБЕСПЕЧЕНИЕ ДИСЦИПЛИНЫ (МОДУЛЯ)</label>
+<br />
+
+<form asp-action="Index" method="post">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div id="AllClassRoom" style="max-height: 600px; overflow-y: auto;overflow-x: hidden;">
+                    <table class="myTable">
+                        <tr>
+                            <td class="col"></td>
+                            <td class="col"><input type="text" onkeyup="Search(event,1)" placeholder="Поиск кабинета.." /></td>
+                            <td class="col"><input type="text" onkeyup="Search(event,2)" placeholder="Поиск описания.." /></td>
+                            <td class="col"><input type="text" onkeyup="Search(event,3)" placeholder="Поиск имен.." /></td>
+                        </tr>
+                        <tr class="header">
+                            <th class="col"></th>
+                            <th class="col">№ Кабинета</th>
+                            <th class="col">Описание</th>
+                            <th class="col">Дополнение</th>
+                        </tr>
+                        @for (int i = 0; i < Model.ClassRoom.Count; i++)
+                        {
+                            <tr id="@Model.ClassRoom[i].Id">
+                                <td class="col"><input onclick="Chois(event,@Model.ClassRoom[i].Id)" asp-for="ClassRoom[i].Cheked" type="checkbox" /></td>
+                                <td class="col">@Model.ClassRoom[i].RoomNumber</td>
+                                <td class="col">
+                                    @if (Model.ClassRoom[i].Equipment.Length <= 50) // Максимальное количество символов в блоке
+                                    {
+                                        @Model.ClassRoom[i].Equipment
+                                    }
+                                    else
+                                    {
+                                        @Model.ClassRoom[i].Equipment.Substring(0, 50) <strong>...</strong>
+                                    }
+                                </td>
+                                <td class="col">@Model.ClassRoom[i].Appointments</td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <input type="submit" value="Сохранить" />
+                <table class="myTable">
+                    <tbody class="tasks__list">
+                        <tr class="header">
+                            <th></th>
+                            <th>№ Кабинета</th>
+                            <th>Описание</th>
+                            <th>Дополнение</th>
+                        </tr>
+                        @for (int i = 0; i < Model.CCRoom.Count; i++)
+                        {
+                            List<ClassRoomModel> k = Model.ClassRoom.Where(x => x.Id == Model.CCRoom[i].IdClassRoom).ToList();
+                            <tr id="Chois_@k.First().RoomNumber">
+                                <td> <input class="inpLab" asp-for="CCRoom[i].IdClassRoom" type="hidden" /></td>
+                                <td> @k.First().RoomNumber</td>
+                                <td>
+                                    @if (Model.ClassRoom[i].Equipment.Length <= 50) // Максимальное количество символов в блоке
+                                    {
+                                        @k.First().Equipment
+                                    }
+                                    else
+                                    {
+                                        @k.First().Equipment.Substring(0, 49) <strong>...</strong>
+                                    }
+                                </td>
+                                <td>
+                                    <select multiple class="TypeRoom" asp-for="CCRoom[i].TypeClassRoom">
+                                        <option value="1">Лекция</option>
+                                        <option value="2">Практика</option>
+                                        <option value="3">Лаб.работа</option>
+                                        <option value="4">СРС</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+*@

@@ -1,0 +1,23 @@
+﻿@using RPD.Models.BD_model.UserProfile;
+
+@model List<UserRole>
+
+
+<div class="col">
+    <div class="col">
+        <input type="checkbox" name="Roles" onclick="ChangeRole(@((int)AdminRole.Администратор))" @(Model != null && Model.Any(r => r.IdRole == (int)AdminRole.Администратор) ? "checked" : "")>
+        <label>Администратор</label>
+    </div>
+    <div class="col">
+        <input type="checkbox" name="Roles" onclick="ChangeRole(@((int)AdminRole.РедактированиеКабинетов))" @(Model != null && Model.Any(r => r.IdRole == (int)AdminRole.РедактированиеКабинетов) ? "checked" : "")>
+        <label>Редактирование Кабинетов</label>
+    </div>
+    <div class="col">
+        <input type="checkbox" name="Roles" onclick="ChangeRole(@((int)AdminRole.РедактированиеЛитературы))" @(Model != null && Model.Any(r => r.IdRole == (int)AdminRole.РедактированиеЛитературы) ? "checked" : "")>
+        <label>Редактирование Литературы</label>
+    </div>
+    <div class="col">
+        <input type="checkbox" name="Roles" onclick="ChangeRole(@((int)AdminRole.РедактированиеПО))" @(Model != null && Model.Any(r => r.IdRole == (int)AdminRole.РедактированиеПО) ? "checked" : "")>
+        <label>Редактирование ПО</label>
+    </div>
+</div>

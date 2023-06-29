@@ -1,0 +1,86 @@
+﻿@using RPD.Models.BD_Second_model;
+@using RPD.Models.BD_model
+@using RPD.Models.RP_1
+@using RPD.ViewModel
+@model RP_1ViewModel
+  <div>
+        
+
+   </div>
+<div>
+   
+    <form method="post" asp-action="Index" asp-controller="RP_1">
+        <input type="button" onclick="SaveRP_1()" class="btn btn-primary" value="Сохранить" />
+        <input hidden asp-for="RPD.IdRPD" />
+        <div class="row">
+            <div class="col-4" style="padding:5px;">
+                <label>Цели освоения дисциплины:</label>
+                <textarea style="overflowy:scroll" class="TextArRP1 Purpose" type="text" asp-for="Purpose"></textarea>
+            </div>
+            
+            <div class="col-4" style="padding:5px;">
+                <label>Задачи освоения дисциплины:</label>
+                <textarea style="overflowy:scroll" class="TextArRP1 Tasks" type="text" asp-for="Tasks"></textarea>
+            </div>
+            <div class="col"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-4" style="padding:5px;">
+                <label>Тематический план практических занятий</label>
+                <textarea disabled="@(Model.PlanPr == false ? "disabled" : null)" placeholder="Приводится перечень практических работ по дисциплине" class="TextArRP1 ThemPlanPr" type="text" asp-for="ThemPlanPr"></textarea>
+            </div>
+            
+            <div class="col-4" style="padding:5px;">
+                <label>Тематический план лабораторных работ</label>
+                <textarea disabled="@(Model.PlanLab == false ? "disabled" : null)" placeholder="Приводится перечень лабораторных работ по дисциплине. " class="TextArRP1 ThemPlanLab" type="text" asp-for="ThemPlanLab"></textarea>
+            </div> 
+            <div class="col-4" style="padding:5px;">
+                <label>Курсовой проект /курсовая работа</label>
+                <textarea disabled="@(Model.PlanKpKr == false ? "disabled" : null)" placeholder="Приводится тематика курсовых проектов /курсовых работ" class="TextArRP1 ThemPlanKpKr" type="text" asp-for="ThemPlanKpKr"></textarea>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-5">
+                <label>Предшествующие дисциплины:</label>
+                <select asp-for="PreviousDisciplines" class="DiscipPred Pred" style="width:400px" asp-items="@new SelectList(Model.Discips)">
+                 </select>
+            </div>
+            <div class="col-5">
+                <label>Последующие дисциплины:</label>
+                <select asp-for="SubsequentDisciplines" class="DiscipPred NoPred " style="width:400px" asp-items="@new SelectList(Model.Discips)">
+                </select>
+            </div>
+            
+        </div>
+        
+
+
+
+       
+
+    </form>
+</div>
+
+
+<script src="~/js/RP_1.js" asp-append-version="true"></script>
+
+<script>
+
+    $(document).ready(function () {
+        $(".DiscipPred").selectize({
+            sortField: "text",
+        });
+    });
+
+    window.onload = function () {
+        document.getElementsByClassName("RP_1Page")[0].style = "background-color: lightgrey;"
+    }
+
+
+  
+
+</script>
+

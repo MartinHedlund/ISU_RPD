@@ -1,0 +1,227 @@
+﻿@using RPD.Models.RP_2;
+@using RPD.Models.Rpd
+@using RPD.ViewModel
+@model RP_2ViewModel
+
+
+<div>
+   
+
+</div>
+
+@{
+    string Urov = ""; string ClassName = ""; int Flag = 0; int LevelForm = 0; string ForAsp = "";
+}
+
+<form method="post" asp-action="Index" asp-controller="RP_2">
+    <input type="submit" class="btn btn-primary" value="Сохранить" style="margin:5px" />
+
+    <div class="row">
+        @for (int i = 0; i < Model.kompet.Count; i++)
+        {
+
+            <table class="iksweb">
+                <tbody>
+                    <tr>
+                        <td width="25">&nbsp;</td>
+                        <td width="25">&nbsp;</td>
+                        <td width="25">&nbsp;</td>
+                        <td>Код Индикатора</td>
+                        <td>Результат обучения</td>
+                        <td>Отлично</td>
+                        <td>Хорошо</td>
+                        <td>Удовлетворительно</td>
+                        <td>Неудовлетворительно</td>
+
+                    </tr>
+                    <tr id="@(Flag++)" class="Komp">
+                        <td>
+                            <div class="arrow" style="display:flex;justify-content: space-around;">
+                                &#9658;
+                            </div>
+                        </td>
+                        <td colspan="9">
+                            <input hidden asp-for="kompet[i].Id" />
+                            <input class="inpLab" hidden asp-for="kompet[i].NameKomp">
+                            <input class="inpLab" hidden asp-for="kompet[i].CodeKomp">
+                            @(Model.kompet[i].CodeKomp): @(Model.kompet[i].NameKomp)
+                        </td>
+                    </tr>
+
+                    @for (int j = 0; j < Model.kompet[i].Indicators.Count; j++)
+                    {
+                        <tr id="@(Flag++)" class="Indecator">
+                            <td></td>
+                            <td><div class="arrow" style="display:flex;justify-content: center">&#9660;</div></td>
+                            <td colspan="8">
+                                <input type="text" hidden asp-for="kompet[i].Indicators[j].Id" />
+                                <input type="text" class="inpLab" hidden asp-for="kompet[i].Indicators[j].NameIndicator" />
+                                <input type="text" class="inpLab" hidden asp-for="kompet[i].Indicators[j].CodeIndicator" />
+                                @(Model.kompet[i].Indicators[j].CodeIndicator): @(Model.kompet[i].Indicators[j].NameIndicator)
+                            </td>
+                        </tr>
+
+                        for (int Uroven = 0; Uroven < 3; Uroven++)
+                        {
+
+                            switch (Uroven)
+                            {
+                                case 0:
+                                    {
+                                        Urov = "Знать";
+                                        ClassName = "З";
+                                        LevelForm = 1;
+                                        ForAsp = "Know";
+                                        break;
+                                    }
+                                case 1:
+                                    {
+                                        Urov = "Уметь";
+                                        ClassName = "У";
+                                        LevelForm = 2;
+                                        ForAsp = "BeAbleTo";
+
+                                        break;
+                                    }
+                                case 2:
+                                    {
+                                        Urov = "Владеть";
+                                        ClassName = "В";
+                                        LevelForm = 3;
+                                        ForAsp = "Own";
+
+                                        break;
+                                    }
+                            }
+                            List<LevelFormation> LevelFormation = Model.kompet[i].Indicators[j].LevelFormations.Where(x => x.Level == LevelForm).ToList();
+                            <tr id="@(Flag++)" class="Flag">
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td style="width: 30px;display:flex;justify-content: space-around;">
+                                    <div class="ThemeHover" onclick="AddLevelForm(event, @(Flag))"> + </div>
+                                    <div class="ThemeHover" onclick="DeleteLevelForm(@Flag)"> - </div>
+                                </td>
+                                <td colspan="7">
+                                    @Urov
+                                </td>
+                            </tr>
+
+                            @if (Model.kompet[i].Indicators[j].LevelFormations.Count != 0)
+                            {
+
+
+                                @for (int k = 0; k < LevelFormation.Count; k++)
+                                {
+                                    
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>
+                                            <input hidden name="kompet[@i].Indicators[@j].@(ForAsp)[@k].NameLevelForm" value="@LevelFormation[k].NameLevelForm" />
+                                            @LevelFormation[k].NameLevelForm
+                                        </td>
+                                        <td>
+                                            <textarea class="form-control" name="kompet[@i].Indicators[@j].@(ForAsp)[@k].Result" >@LevelFormation[k].Result</textarea>
+                                        </td>
+                                        <td>
+                                            <textarea class="form-control" name="kompet[@i].Indicators[@j].@(ForAsp)[@k].High">@LevelFormation[k].High</textarea>
+                                        </td>
+                                        <td>
+                                            <textarea  class="form-control" name="kompet[@i].Indicators[@j].@(ForAsp)[@k].Average" >@LevelFormation[k].Average</textarea>
+                                        </td>
+                                        <td>
+                                            <textarea class="form-control"  name="kompet[@i].Indicators[@j].@(ForAsp)[@k].BelowMiddle" >@LevelFormation[k].BelowMiddle</textarea>
+                                        </td>
+                                        <td>
+                                            <textarea class="form-control" name="kompet[@i].Indicators[@j].@(ForAsp)[@k].Low">@LevelFormation[k].Low</textarea>
+                                        </td>
+                                        <td hidden>
+                                            <input name="kompet[@i].Indicators[@j].@(ForAsp)[@k].Level" value="@LevelForm" />
+                                        </td>
+
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>
+                                        <input hidden name="kompet[@i].Indicators[@j].@(ForAsp)[0].NameLevelForm" value="@(Model.kompet[i].Indicators[j].CodeIndicator)-@(ClassName)1" />
+                                        @(Model.kompet[i].Indicators[j].CodeIndicator)-@(ClassName)1
+                                    </td>
+                                    <td>
+                                        <textarea class="form-control" name="kompet[@i].Indicators[@j].@(ForAsp)[0].Result"></textarea>
+                                    </td>
+                                    <td>
+                                        <textarea class="form-control" name="kompet[@i].Indicators[@j].@(ForAsp)[0].High"></textarea>
+                                    </td>
+                                    <td>
+                                        <textarea class="form-control" name="kompet[@i].Indicators[@j].@(ForAsp)[0].Average"></textarea>
+                                    </td>
+                                    <td>
+                                        <textarea class="form-control" name="kompet[@i].Indicators[@j].@(ForAsp)[0].BelowMiddle"></textarea>
+                                    </td>
+                                    <td>
+                                        <textarea class="form-control" name="kompet[@i].Indicators[@j].@(ForAsp)[0].Low"></textarea>
+                                    </td>
+                                    <td hidden>
+                                        <input name="kompet[@i].Indicators[@j].@(ForAsp)[0].Level" value="@LevelForm" />
+                                    </td>
+
+                                </tr>
+                            }
+                        }
+                    }
+                    <tr id="@(Flag++)" hidden class="Flag">
+                    </tr>
+                </tbody>
+            </table>
+            <br />
+        }
+
+    </div>
+
+</form>
+
+
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+    window.onload = function () {
+        document.getElementsByClassName("RP_2Page")[0].style = "background-color: lightgrey;"
+    }
+    //$('tr.header').click(function () {
+    //    $(this).nextUntil('tr.header').css('display', function (i, v) {
+    //        return this.style.display === 'table-row' ? 'none' : 'table-row';
+    //    });
+    //});
+
+    $(document).ready(function () {
+        $(".arrow").click(function () {
+            var parentRow = $(this).closest("tr");
+
+            // Находим все следующие строки (tr) после родительской строки
+            var nextRows = parentRow.nextUntil("tr:has(.arrow)");
+
+            // Проверяем, отображены ли следующие строки
+            if (nextRows.is(":visible")) {
+                // Если отображены, скрываем их
+                nextRows.hide();
+                $(this).text('►'); // Изменяем текст символа на '▶'
+            } else {
+                // Если скрыты, отображаем их
+                nextRows.show();
+                $(this).text('▼'); // Изменяем текст символа на '▼'
+            }
+        });
+    });
+
+
+
+
+
+</script>

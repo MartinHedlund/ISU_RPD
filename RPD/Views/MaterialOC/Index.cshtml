@@ -1,0 +1,21 @@
+﻿@using RPD.Models.Material
+@using RPD.ViewModel
+@using RPD.Models
+
+
+<div class="container">
+	<script src="~/js/MaterialOC.js" asp-append-version="true"></script>
+
+@{
+	Html.RenderPartialAsync("TechnologiMapV2");
+	//if(Model.IsChekedEval)
+	//	//await Html.RenderPartialAsync("EvaluationTools");
+	//else if (Model.IsChekedTech)
+	//	await Html.RenderPartialAsync("TechnologiMapV2");
+}
+</div>
+<script>
+	window.onload = function () {
+		document.getElementsByClassName("OCPage")[0].style = "background-color: lightgrey;"
+	}
+</script>

@@ -1,0 +1,18 @@
+﻿<div class="row">
+    <div class="col-md-4">
+       @* asp-controller="FunctionPanel"
+        asp-action="UploadFile"*@
+        <form  id="UploadFileForm"  method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="file">Выберите файл:</label>
+                <input type="file" name="file" class="form-control-file" />
+            </div>
+            <button type="submit" id="btnUpload" class="btn btn-success">Загрузить</button>
+        </form>
+        <div id="loading" style="display:none;">
+            <img src="~/img/Down.gif" height="10px" width="10px"/>
+            <div>Загрузка может занять время...</div>
+        </div>
+    </div>
+</div>
+

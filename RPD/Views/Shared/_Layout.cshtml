@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - RPD</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/RPD.styles.css" asp-append-version="true" />
+    <link href="~/css/mvc-grid/mvc-grid.css" rel="stylesheet">
+    @*<link rel="stylesheet" href="~/lib/select2/dist/css/select2.css" asp-append-version="true">*@
+    <link rel="stylesheet" href="~/lib/selectize/dist/css/selectize.bootstrap5.css">
+    @*<script src="https://cdn.ckeditor.com/ckeditor5/29.2.0/classic/ckeditor.js"></script>*@
+
+    <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-ajax-unobtrusive/dist/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/RP_2.js" asp-append-version="true"></script>
+    @*<script src="~/js/Home.js" asp-append-version="true"></script>*@
+    <script src="~/lib/selectize/dist/js/selectize.min.js" asp-append-version="true"></script>
+    <link rel="shortcut icon" href="~/img/favicon.ico" asp-append-version="true" type="image/x-icon">
+</head>
+<body>
+
+    <div class="container">
+        <div class="position-absolute top-0 start-0 m-3 ">Версия: 1.6.1</div>
+        @if (ViewData["HideNavigation"] == null)
+        {
+            <ul class="nav nav-pills">
+                <li class="nav-item"><a href="~/Titul/Index" class="nav-link MainPage" aria-current="page">Главная</a></li>
+            <li class="nav-item"><a href="~/RP_1/Index" class="nav-link RP_1Page" aria-current="page">РП-1.1</a></li>
+            <li class="nav-item"><a href="~/RP_2/Index" class="nav-link RP_2Page" aria-current="page">РП-1.2</a></li>
+            <li class="nav-item"><a href="~/Content/Index" class="nav-link ContentPage" aria-current="page"> Содержание </a></li>
+            <li class="nav-item"><a href="~/MaterialOC/Index" class="nav-link OCPage" aria-current="page">Оценочные материалы</a></li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Справочники</a>
+                <ul class="dropdown-menu">
+                    @*<li><a class="dropdown-item" href="~/Mtod/Index">Кабинеты</a></li>*@
+                    <li><a class="dropdown-item" href="~/Mtod/Liter">Литература</a></li>
+                    <li><a class="dropdown-item" href="~/Mtod/LiterT">Лицензионное программное обеспечение</a></li>
+                </ul>
+            </li>
+        </ul>
+            <div class="position-absolute top-0 end-0 m-3 "><a href="~/Home/Index" class="btn btn-danger">Выход</a></div>
+        }
+        
+        <main role="main">
+            @RenderBody()
+        </main>
+        <script src="~/js/mvc-grid.js"></script>
+        <script>
+            document.querySelectorAll(".mvc-grid").forEach(element => new MvcGrid(element));
+        </script>
+    </div>
+
+  
+
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

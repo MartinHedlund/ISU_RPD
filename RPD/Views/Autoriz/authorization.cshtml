@@ -1,0 +1,38 @@
+@model UserAuth
+
+<form class="container-fluid d-flex h-100 justify-content-center align-items-center p-0">
+    <div>
+        <img class="mb-4" src="~/img/1.jpg" alt="" width="250" height="250">
+
+        <h1 class="h3 mb-5 fw-normal text-center">Вход в редактор РПД</h1>
+
+        <div class="form-floating form-group">
+            <input type="text" class="form-control" id="floatingLogin" placeholder="ivanov.vl">
+            <label for="floatingInput">Введите логин</label>
+            
+        </div>
+        <br />
+        <div class="form-floating form-group">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Пароль">
+            <label for="floatingPassword">Введите пароль</label>
+            <div class="invalid-feedback">
+                Неверный логин или пароль
+            </div>
+        </div>
+
+        @* <div class="checkbox mb-3">
+        <label>
+        <input type="checkbox" value="remember-me"> Remember me
+        </label>
+        </div>*@
+        <br />
+        <input method="post" type="submit" id="InputLoginSubmit" class="w-100 btn btn-lg btn-primary ButAuth" value="Вход" />
+        <div class="w-100 gif" hidden>
+            <img src="~/img/Down.gif"   height="100px" width="100px" style="display:block; margin:auto" />
+        </div>
+
+    </div>
+</form>
+
+
+<script asp-append-version="true"  src="~/js/auth.js"></script>

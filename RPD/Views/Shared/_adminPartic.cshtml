@@ -1,0 +1,22 @@
+﻿@using RPD.Models.Home;
+@model List<UsersAccess>
+
+
+<div class="row">
+
+    <div class="col">
+        <select onchange='changeUserAjax(this)'
+                class="UsersAll form-select-sm form-select "
+                style="display: inline-block; width:300px ;flex-grow: 1"
+                id="selectUser"
+                asp-items="@(new SelectList(Model, nameof(UsersAccess.Id), nameof(UsersAccess.Name)))">
+                <option value="-1">--- Выберите пользователя ---</option>
+        </select>
+    </div>
+    <div class="row m-3">
+        <div id="partRoles">
+            
+        </div>
+    </div>
+        
+</div>

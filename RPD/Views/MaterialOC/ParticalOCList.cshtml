@@ -1,0 +1,24 @@
+﻿@using RPD.Models.Material
+@using RPD.ViewModel
+@using RPD.Service
+@model EvaluationToolsOthers
+
+
+@if (Model.ListAllEvaluationToolsIDId != 0)
+{
+    <div class="divTableRow">
+        <div class="divTableCell">
+            <div>
+                <div>
+                    <input name="" hidden id="blockId" value="@Model.ListAllEvaluationToolsIDId" />
+                    <input name="" hidden id="idChapter" value="" />
+                    <p name="">@Model.ListAllEvaluationToolsID.NameEvaluation</p>
+                    <div class="divTableCell"><button onclick="deleteRow(this)" class="btn btn-link">Удалить</button></div>
+                </div>
+            </div>
+        </div>
+        <div class="divTableCell">@*пустое поле дял столбца ТК*@</div>
+        <div class="divTableCell"><input name="" id="ballEvT" class="form-control sum-input" max="100" min="0" value="@Model.Ball" type="number" /></div>
+        <div class="divTableCell"><input name="" id="dopballEvT" class="form-control sum-input-dob" max="15" min="0" value="@Model.DopBall" type="number" /></div>
+    </div>
+    }

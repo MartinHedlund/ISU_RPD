@@ -1,0 +1,440 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+
+  .bd-placeholder-img-lg {
+        font-size: 10px;
+  }
+}
+strong {
+    font-weight: 500;
+}
+.ThemeHover, .svg:hover {
+    cursor: pointer;
+}
+/*.accordion-button:not(.collapsed) {
+    background-color: #ccc;
+    color: black;
+}*/
+.accordion-button {
+    background-color: #ffffff;
+}
+/* �������� ���� ���� ����������� ��������� */
+/*.accordion-button.collapsed {
+    background-color: #ffffff;
+}*/
+    .accordion-button:not(.collapsed) {
+        background-color: #ccc;
+        color: black;
+    }
+p{
+    margin: 0;
+}
+.tableHome {
+    display: flex;
+    flex-direction: column;
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+}
+
+.rowHome {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.cellHome {
+    /*flex: 1;*/
+    margin-right: 10px;
+}
+
+    .cell:last-child {
+        margin-right: 0;
+    }
+
+.headerHome {
+    font-weight: bold;
+    background-color: #f0f0f0;
+}
+/*
+#loader {
+    display: none;
+}*/
+.Main {
+    padding: 10px;
+    border-bottom: 1px solid lightgrey;
+}
+.Main.active {
+    background-color: aqua;
+}
+.UchPlanHome.active {
+    background-color: aqua;
+}
+.CompleteRPD.active {
+    background-color: aqua;
+}
+
+.tab-tr {
+    padding: 5px;
+    background: #efefef;
+    border: 1px solid #dddddd;
+}
+
+.tab-td {
+    padding: 1px;
+}
+.tab-tr-modal {
+    padding: 15px;
+}
+
+.tab-td-modal {
+    padding: 5px;
+}
+
+
+
+
+/*
+.select2-selection__rendered ul{
+    display: block;
+}*/
+.form {
+    align-content: center
+}
+html {
+    /* position: relative;*/
+    min-height: 100%;
+    font-size: 12px;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.NameCh {
+
+}
+
+.myInput {
+    background-image: url('/css/searchicon.png'); /* �������� ������ ������ ��� ����� */
+    background-position: 10px 12px; /* ����������� ������ ������ */
+    background-repeat: no-repeat; /* �� ���������� ����������� ������ */
+    width: 100%; /* ������ ������ */
+    /*font-size: 16px;*/ /* ��������� ������ ������ */
+    padding: 12px 20px 12px 40px; /* �������� ������� �������� */
+    border: 1px solid #ddd; /* �������� ����� ������� */
+    margin-bottom: 12px; /* �������� ��������� ������������ ��� ������ */
+}
+
+.myTable {
+    border-collapse: collapse; /* �������� ������� */
+    width: 100%; /* ������ ������ */
+    border: 1px solid #ddd; /* �������� ����� ������� */
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+    .myTable th, .myTable td {
+        text-align: left; /* ������������ ������ �� ������ ���� */
+        padding: 12px; /* �������� ������ */
+    }
+
+    .myTable tr {
+        /* �������� ������ ������� ��� ���� ����� ������� */
+        border-bottom: 1px solid #ddd;
+    }
+
+        .myTable tr.header, .myTable tr:hover {
+            /* �������� ����� ���� ���� ��� ��������� ������� � ��� ��������� ������� ���� */
+            background-color: #f1f1f1;
+        }
+
+
+
+
+
+input[type="number"]::-webkit-outer-spin-button, /*���������� ���������*/
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.Hour {
+    width: 35px;
+    /*text-decoration: underline;*/
+    margin: 5px;
+}
+
+.inp {
+    /*border: none;*/
+    background-color: transparent;
+
+}
+
+.TopBar {
+    position:center;
+    
+}
+
+.Razrab {
+    display: flex;
+    width: 400px;
+    
+}
+
+.bd-placeholder-img {
+    font-size: 15px;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+ul {
+    /*display: flex;*/
+    align-content: center;
+    justify-content: center;
+    list-style: none;
+}
+
+fieldset {
+    background-color: #eeeeee;
+    font-size: 12px
+}
+
+legend {
+    background-color: gray;
+    color: white;
+    padding: 5px 10px;
+    font-size: 12px
+}
+li {
+    margin: 10px;
+}
+
+.row {
+    margin-bottom: 10px;
+}
+/*////////////////*/
+.button-blcok {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 45px;
+}
+
+    .button-blcok .wrapper {
+        margin-right: auto;
+    }
+
+.content-box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+/* ����� ������� (IKSWEB) */
+table.iksweb {
+    text-decoration: none;
+    border-collapse: collapse;
+    width: 100%;
+    
+    /*text-align: center;*/
+}
+
+table.iksweb th {
+    font-weight: normal;
+    font-size: 14px;
+    color: #ffffff;
+    background-color: #000000;
+}
+
+table.iksweb td {
+    font-size: 13px;
+    color: #000000;
+}
+
+table.iksweb td{
+    /*white-space: pre-wrap;*/
+    padding: 0px 0px;
+    /*line-height: 13px;*/
+    vertical-align: middle;
+    border: 1px solid #000000;
+}
+
+table.iksweb tr:hover {
+    background-color: #f9fafb
+}
+
+table.iksweb tr:hover td {
+    color: #000000;
+    cursor: default;
+}
+.InputTitul {
+    border:none;
+    /*outline:none;*/
+}
+
+.inpLab {
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
+
+.DivImg {
+    width: 50px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
+    justify-content: space-around;
+}
+
+.tdImg {
+    max-width: 60px;
+}
+td.tdImg img {
+    width: 20px;
+    height: 20px;
+}
+
+table.TitleControlTable td, table.TitleControlTable tr {
+    padding: 0px 0px;
+    /*line-height: 13px;*/
+    vertical-align: middle;
+    border: 1px solid #000000;
+    
+}
+.arrow {
+    width: 25px;
+    font-size: 14px;
+    color: #000;
+    cursor: pointer;
+    max-width: 25px;
+    /**/
+}
+
+table.table input {
+    border: none;
+/*    outline: none;
+*/    background-color: transparent;
+}
+
+
+.tasks__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.tasks__item {
+    max-width: 250px;
+    margin-bottom: 10px;
+    padding: 5px;
+    text-align: center;
+    border: 2px dashed #b2d9d0;
+    border-radius: 10px;
+    cursor: move;
+    background-color: #dff2ef;
+    transition: background-color 0.5s;
+}
+
+.tasks__item:last-child {
+    margin-bottom: 0;
+}
+
+.selected {
+    opacity: 0.6;
+}
+
+.TextArRP1 {
+    padding: 0;
+    width: 100%; /* ������ ���� � ��������� */
+    height: 200px; /* ������ ���� � �������� */
+    resize: none; /* ��������� �������� ������ */
+}
+
+.ChoisKomp {
+    /*height: 300px;*/
+    overflow-x: auto;
+    margin-top: 0px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.scroll-table-body {
+    height: 170px;
+    overflow-x: auto;
+    margin-top: 0px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.scroll-table table {
+    width: 100%;
+    table-layout: fixed;
+    border: none;
+}
+
+.scroll-table thead th {
+    font-weight: bold;
+    text-align: left;
+    border: none;
+    padding: 10px 15px;
+    background: #d8d8d8;
+    font-size: 14px;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+}
+
+.scroll-table tbody td {
+    text-align: left;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    padding: 10px 15px;
+    font-size: 14px;
+    vertical-align: top;
+}
+
+.scroll-table tbody tr:nth-child(even) {
+    background: #f3f3f3;
+}
+
+/* ����� ��� ������� */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+
+::-webkit-scrollbar-thumb {
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+
+/*������� �� div*/
+
+.my-flex-cont {
+    display: flex;
+    /*justify-content: space-between;*/
+    justify-content: flex-start;
+    width: 600px;
+}
+
+.my-flex-box {
+    margin: auto;
+    padding: auto;
+    flex: 1 1 auto;
+}
+
+.my-flex-box-elem {
+    margin: auto;
+    padding: auto;
+    width: 15px;
+}
+

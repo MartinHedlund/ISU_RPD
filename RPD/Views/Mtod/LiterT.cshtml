@@ -1,0 +1,39 @@
+﻿@using NonFactors.Mvc.Grid;
+@using RPD.ViewModel;
+@model MtodViewModel
+
+
+<h2>Лицензионное программное обеспечение</h2>
+@*data-bs-toggle="modal" data-bs-target="#staticBackdrop"*@
+<div class="container">
+    <button class=" btn btn-primary w-auto m-2" onclick="ProductChois()" >
+        Выбранное ПО
+    </button>
+   @* <form method="get">
+
+        <div class="m-2" style="display:block ">
+            <input class="border border-3 border-top-0 border-start-0 border-end-0 w-25" type="search" id="input-search" asp-for="SearchString" placeholder="Введите название ПО" style=" outline: none;">
+            <button class="btn btn-primary" type="submit">Поиск </button>
+        </div>
+
+    </form>*@
+    @Html.Partial("_GridPartialProd", Model.ProductTeches)
+
+</div>
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Выбранная литература</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body ProductChois">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Принять</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/js/ProductTeche.js" asp-append-version="true"></script>

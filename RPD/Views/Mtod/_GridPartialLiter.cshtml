@@ -1,0 +1,43 @@
+﻿@using NonFactors.Mvc.Grid
+@using RPD.Models.BD_model.LiterAndRoomAndProgramm;
+@model List<rpLit>
+<link rel="stylesheet" href="~/css/tablecss.css" asp-append-version="true" />
+@(
+Html
+    .Grid(Model)
+    .Build(columns =>
+    {
+        columns.Add(model => Html.CheckBox("Check_" + model.IdLit, model.Chois)).AppendCss("disablecheck");
+
+        @*columns.Add().RenderedAs((model, row) => row + 1).Titled("#").Css("text-center");*@
+
+        columns.Add(model => model.LibId).Titled("Номер").IsHidden = true;
+        columns.Add(model => model.LitName).Titled("Название").Filterable(GridFilterCase.Lower).UsingDefaultFilterMethod("consists-of");
+        columns.Add(model => model.NameProlong).Titled("Аннотация").Filterable(GridFilterCase.Lower).UsingDefaultFilterMethod("consists-of");
+        columns.Add(model => model.KeyWords).Titled("Ключевые слова").Filterable(GridFilterCase.Lower).UsingDefaultFilterMethod("consists-of");
+
+        columns.Add(model => model.Authors).Titled("Автор").Filterable(GridFilterCase.Lower).UsingDefaultFilterMethod("consists-of");
+        columns.Add(model => model.Volume).Titled("Экземпляров").Filterable(GridFilterCase.Lower).UsingDefaultFilterMethod("consists-of");
+        columns.Add(model => model.Adress).Titled("Ссылка").Filterable(false);
+
+
+    })
+    .Id("my-grid")
+    .Using(GridFilterMode.Row)
+    .Empty("No data found")
+    .Filterable()
+    .Css("table")
+    .AppendCss("table-hover")
+    .Sortable()
+    .Pageable()
+    .RowAttributed(model => new
+    {
+        @class = model.Deleted == true ? "mvc-grid-row-select-del" : null,
+        @onclick = $"LiterClick({model.IdLit})",
+    })
+    )
+@*.Attributed(new { data_type = "individuals" })*@
+@*  columns.Add(model => model.Publishing).Titled("Публикация").Filterable(GridFilterCase.Lower);
+columns.Add(model => model.ImprintDate).Titled("Год").Filterable(GridFilterCase.Lower);*@
+@*columns.Add(model => $"<a  data-modal='' data-id=\"{model.Id}\"     href='PasswordRestUser/{model.Id}'      id=\"ss\"  asp-    action=\"PR\" asp-route-id=\"@item.Id\" class=\"btn     btn-info\" '> PR <span class='glyphicon      glyphicon-user'> </span> </a>").Encoded(false);*@
+

@@ -1,0 +1,275 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@using RPD.Models.Home
+@using RPD.Models.BD_model
+@using RPD.ViewModel
+@model HomeViewModel
+<!-- Load d3.js -->
+<script src="https://d3js.org/d3.v4.js"></script>
+
+<!-- Create a div where the graph will take place -->
+
+
+<!-- Color scale -->
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+<div>
+    <div class="TopBar" style="width: 100%;">
+        <div class="row">
+            <div class="col-md-5">
+                <h1>Менеджер РПД</h1>
+            </div>
+            <div class="col-md-7" style="width: 50%;">
+                <div class=" d-flex justify-content-end">
+                    <p>Пользователь: </p>
+                    <p> @Model?.UserModel?.UserName</p>
+                </div>
+                <div class=" d-flex justify-content-end">
+                    <a href="~/Autoriz/authorization">Выйти</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="display:flex">
+
+    <form asp-controller="Home">
+        <input asp-route-Id="0" method="post" asp-action="CreateRPD" class="CreateRPD btn btn-primary m-1 btn-sm" value="Создать" type="submit" disabled />
+    </form>
+    <form asp-controller="Home">
+        <input asp-route-Id="0" method="post" asp-action="OpenRPD" class="OpenRPD btn btn-primary m-1 btn-sm" value="Открыть" type="submit" disabled />
+    </form>
+    <button class="DelRpd btn btn-danger m-1 btn-sm" onclick="DelRPD()"  disabled>Удалить</button>
+    @if (Model.IsZafKaf || Model.Permision.Any(x => x.IdRole == (int)AdminRole.Администратор))
+    {
+        <input type="button" class="btn btn-primary m-1 btn-sm" data-bs-toggle="modal" data-bs-target="#Diagramm" value="Диаграмма">
+
+       
+        <input class="ChoisDev btn btn-primary m-1 btn-sm" id="0" onclick="ChoisDevelop(event)" type="submit" value="Выбор исполнителя" data-bs-toggle="modal" data-bs-target="#staticBackdrop" disabled />
+
+        @*// модальное окно открыте доспупа*@
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Открытие доступа</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                    </div>
+                    <div class="modalUchPlan">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                        <button type="button" onclick="SaveUsersAccess()" data-bs-dismiss="modal" class="btn btn-primary ">Принять</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+            
+    <input id="commentBtn" type="submit" disabled class="btn btn-primary m-1 btn-sm" value="Оставить комментарий" />
+    @*// модальное окно коментария*@
+    <div id="commentModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Оставить комментарий</h5>
+                    <button type="button" class="close closeCommentBtn" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="commentForm">
+                        <div class="form-group">
+                            <label for="commentText">Текст комментария:</label>
+                            <textarea class="form-control" id="commentText" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary closeCommentBtn" data-dismiss="modal">Закрыть</button>
+                    <button type="button" id="submitCommentBtn" class="btn btn-primary">Отправить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    @if(Model.Permision.Any(x=>x.IdRole == (int)AdminRole.Администратор))
+    {
+        <input id="AdminBtn" type="submit" class="btn btn-primary m-1 btn-sm" data-bs-toggle="modal" data-bs-target="#adminModal" value="Администриование" />
+        @*// Модальное окно администрирования*@
+        <div id="adminModal" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Назначение ролей</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="modalUserRoles">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }    
+    @if (Model.Permision.Any(x => x.IdRole == (int)AdminRole.РедактированиеКабинетов) || Model.Permision.Any(x => x.IdRole == (int)AdminRole.Администратор))
+    {
+        <input id="commentBtn"type="submit" class="btn btn-primary m-1 btn-sm" value="Кабинеты" />
+
+    }    
+    @if (Model.Permision.Any(x => x.IdRole == (int)AdminRole.РедактированиеЛитературы) || Model.Permision.Any(x => x.IdRole == (int)AdminRole.Администратор))
+    {
+        <input id="UploadLiterBtn" class="btn btn-primary m-1 btn-sm" data-toggle="modal" data-target="#myModalLiter" value="Загрузка Литература" />
+        @*// модальное окно загрузки литературы*@
+        <div class="modal fade" id="myModalLiter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">Загрузка XML File</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="upload-section">
+                            @await Html.PartialAsync("_UploadFilePartic")
+                        </div>
+
+                    </div>
+                    <button type="button" id="CloseUploadLiterBtn" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                </div>
+            </div>
+        </div>
+
+    }    
+    @if (Model.Permision.Any(x => x.IdRole == (int)AdminRole.РедактированиеПО) || Model.Permision.Any(x => x.IdRole == (int)AdminRole.Администратор))
+    {
+        <input id="commentBtn" type="submit" class="btn btn-primary m-1 btn-sm" value="ПО" />
+    }
+
+
+</div>
+
+<div class="container" style="overflow:auto; height: 85vh;">
+     @Html.Partial("_GridParticalHome", Model.mainTableUchPlans)
+</div>
+
+@*Модалькя для диаграммы*@
+<div class="modal fade" id="Diagramm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Диаграмма</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+            </div>
+            <div class="modal-body">
+                <div id="my_dataviz" style="display: flex; justify-content: space-between; flex-direction: column-reverse; align-content: stretch;align-items: center;">
+                    <div>
+                        <p style="font-size: 14pt;">Количество Созданных РПД:<strong style="font-size: 18pt;"> @(Model.mainTableUchPlans.Where(x => x.ChekRPD == true).Count())</strong></p>
+                        <p style="font-size: 14pt;">Количество НЕ Созданных РПД:<strong style="font-size: 18pt;"> @(Model.mainTableUchPlans.Where(x => x.ChekRPD == false).Count())</strong></p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section Scripts{
+    <script src="~/js/Home.js" asp-append-version="true"></script>
+    <script src="~/js/FunctionPanel.js" asp-append-version="true"></script>
+}
+<script>
+
+
+    var divs = document.getElementsByClassName('Main');
+
+    // Обработчик события "click" для блоков div
+    function divClickHandler() {
+        // Удаляем класс "active" у всех блоков div
+        for (var i = 0; i < divs.length; i++) {
+            divs[i].classList.remove('active');
+        }
+
+        // Добавляем класс "active" на блок div, по которому был произведен клик
+        this.classList.add('active');
+    }
+
+    // Добавляем обработчик события "click" ко всем блокам div
+    for (var i = 0; i < divs.length; i++) {
+        divs[i].addEventListener('click', divClickHandler);
+    }
+</script>
+
+<script asp-append-version="true">
+
+    // set the dimensions and margins of the graph
+    var width = 450
+    height = 450
+    margin = 40
+
+    // The radius of the pieplot is half the width or half the height (smallest one). I subtract a bit of margin.
+    var radius = Math.min(width, height) / 2 - margin
+
+    // append the svg object to the div called 'my_dataviz'
+    var svg = d3.select("#my_dataviz")
+        .append("svg")
+        .attr("width", width)
+        .attr("height", height)
+        .append("g")
+        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+    // Create dummy data
+    var data = { Создано: @(Model.mainTableUchPlans.Where(x=>x.ChekRPD== true).Count()), НеСоздано: @(Model.mainTableUchPlans.Where(x=>x.ChekRPD== false).Count()) }
+
+    // set the color scale
+    var color = d3.scaleOrdinal()
+        .domain(data)
+        .range(d3.schemeSet2);
+
+    // Compute the position of each group on the pie:
+    var pie = d3.pie()
+        .value(function (d) { return d.value; })
+    var data_ready = pie(d3.entries(data))
+    // Now I know that group A goes from 0 degrees to x degrees and so on.
+
+    // shape helper to build arcs:
+    var arcGenerator = d3.arc()
+        .innerRadius(0)
+        .outerRadius(radius)
+
+    // Build the pie chart: Basically, each part of the pie is a path that we build using the arc function.
+    svg
+        .selectAll('mySlices')
+        .data(data_ready)
+        .enter()
+        .append('path')
+        .attr('d', arcGenerator)
+        .attr('fill', function (d) { return (color(d.data.key)) })
+        .attr("stroke", "black")
+        .style("stroke-width", "2px")
+        .style("opacity", 0.7)
+
+    // Now add the annotation. Use the centroid method to get the best coordinates
+    svg
+        .selectAll('mySlices')
+        .data(data_ready)
+        .enter()
+        .append('text')
+        .text(function (d) { return d.data.key })
+        .attr("transform", function (d) { return "translate(" + arcGenerator.centroid(d) + ")"; })
+        .style("text-anchor", "middle")
+        .style("font-size", 17)
+
+
+</script>

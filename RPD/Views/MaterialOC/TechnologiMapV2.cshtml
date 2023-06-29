@@ -1,0 +1,299 @@
+﻿@using RPD.Models.Content;
+@using RPD.Models.Material
+@using RPD.ViewModel
+@model MaterialViewModel
+
+<h2>Технологическая карта</h2>
+
+@*<p>@MaterialViewModel.GlobalIDRPD</p>*@
+
+<link rel="stylesheet" href="~/css/tablecss.css" asp-append-version="true" />
+
+
+@{
+    int CountSem = Model.NumSemList!.Count;
+}
+@if (CountSem == 0)
+{
+    <h3 style="color: orangered">Для начала добавьте разделы</h3>
+}
+
+@for (int i = 0; i < CountSem; i++)
+{
+    <br />
+    <form asp-action="SaveFormModel" class="needs-validation sum-form" novalidate>
+        <input class="btn check-btn btn-primary" id="subButton" type="submit" value="Сохранить" />
+
+        <h3>
+            Семестр <strong> @Model.NumSemList?[i] </strong>
+        </h3>
+
+        <div class="divTable">
+            <div class="divTableHeading">
+                <div class="divTableHead">Наименование раздела</div>
+                <div class="divTableHead">Формы и вид контроля</div>
+                <div class="divTableHead">Текущий контроль</div>
+                <div class="divTableHead">Дополнительные баллы</div>
+                <div class="divTableHead">Промежуточная аттестация</div>
+            </div>
+            @{
+                List<Chapter>? razdels = Model.Razdels?.Where(p => p.Semestr == Model.NumSemList?[i]).ToList();
+            }
+            @for (int j = 0; j < Model.Razdels?.Where(p => p.Semestr == Model.NumSemList?[i]).Count(); j++)
+            {
+                <input type="number" hidden asp-for="@razdels[j].Semestr" />
+                <input type="number" hidden asp-for="@razdels[j].Id" />
+                <div class="divTableBody">
+                    <div class="divTableRow" style="background: #F5F5DC">
+                        <div class="divTableCell">
+                            <strong>Раздел "@razdels[j].NameChapter"</strong>
+                            @{
+                                int id = razdels[j].Id;
+                            }
+                            @*onchange="seclectFun(@j)"*@
+                            <select id="mySelect" onchange='_textAjax(@i,@j, @id ,this)'
+                                    class="js-select2 form-select-sm"
+                                    style="display: inline-block; width:400px ;flex-grow: 1"
+                                    asp-items="@(
+                                new SelectList(Model.ListAllEvaluationTools,
+                                nameof(ListAllEvaluationTools.Id),
+                                nameof(ListAllEvaluationTools.NameEvaluation)))">
+                                <option value="" disabled selected hidden>Выберите оценочное средство</option>
+                            </select>
+
+                        </div>
+                        <div class="divTableCell"><strong>ТК@(j + 1)</strong></div>
+                        <div class="divTableCell">
+                            <div class="form-group">
+                                <input type="number" class="SummBall form-control" placeholder="Введите сумму за ТК" asp-for="@razdels[j].SumBall" />
+                                <div class="invalid-feedback">
+                                    Сумма значений не равна 55
+                                </div>
+                            </div>
+                        </div>
+                        <div class="divTableCell"><strong>0-15</strong><p>Сумма доп. баллов: @razdels[j].SumDopBall</p></div>
+                        <div class="divTableCell">@if (razdels[j].SumDopBall != 0) 
+                            {
+                                <strong>
+                                    @razdels[j].SumBall - @(razdels[j].SumBall + razdels[j].SumDopBall)
+                                </strong>
+                            }else
+                            {
+                                <strong>0 - @razdels[j].SumBall</strong>
+                            }
+                        </div>
+                    </div>
+
+                </div>
+                <div class="divTableBody sum-form-wraper" id="panel@(i)_@(j)">
+                    @for (int g = 0; g < razdels[j].EvaluationToolsOthers.Count; g++)
+                        @if (true)
+                        {
+                            <div class="divTableRow">
+                                <div class="divTableCell">
+                                    <div>
+                                        <div>
+                                            <input hidden asp-for="@razdels[j].EvaluationToolsOthers[g].ListAllEvaluationToolsIDId" />
+                                            <input hidden asp-for="@razdels[j].EvaluationToolsOthers[g].Id" />
+                                            <input hidden asp-for="@razdels[j].EvaluationToolsOthers[g].ChapterId" />
+                                            <input hidden asp-for="@razdels[j].EvaluationToolsOthers[g].IdRPD" />
+                                            <input hidden asp-for="@razdels[j].EvaluationToolsOthers[g].ListAllEvaluationToolsID.NameEvaluation" />
+                                            <p>@razdels[j].EvaluationToolsOthers[g].ListAllEvaluationToolsID.NameEvaluation</p>
+                                            <input type="submit" class="btn btn-link" asp-action="Delete" asp-route-id="@razdels[j].EvaluationToolsOthers[g].Id" value="Удалить">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="divTableCell">@*пустое поле дял столбца ТК*@</div>
+                                <div class="divTableCell">
+                                    <div class="form-group">
+                                        <input max="100"
+                                               min="0"
+                                               style="white-space: pre"
+                                               class="form-control sum-input"
+                                               asp-for="@razdels[j].EvaluationToolsOthers[g].Ball" type="number" />
+                                        <div class="invalid-feedback">
+                                            Сумма значений больше допустимого
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="divTableCell">
+                                    <div class="form-group">
+                                        <input max="15"
+                                               min="0"
+                                               class="form-control sum-input-dob"
+                                               asp-for="@razdels[j].EvaluationToolsOthers[g].DopBall" type="number" />
+                                    </div>
+                                </div>
+                                <div class="divTableCell"></div>
+                            </div>
+                        }
+                </div>
+            }
+
+
+            <div class="divTableFoot">
+                <div class="divTableRow">
+                    <div class="divTableCell"><strong>Промежуточная аттестация (зачет, экзамен, КП, КР)</strong></div>
+                    <div class="divTableCell"><strong>ОМ</strong></div>
+                    <div class="divTableCell"></div>
+                    <div class="divTableCell"></div>
+                    <div class="divTableCell"><strong>0-45</strong></div>
+                </div>
+                <div class="divTableRow">
+                    <div class="divTableCell">Задание промежуточной аттестации</div>
+                    <div class="divTableCell"></div>
+                    <div class="divTableCell"></div>
+                    <div class="divTableCell"></div>
+                    <div class="divTableCell">0-15</div>
+                </div>
+                <div class="divTableRow">
+                    <div class="divTableCell">В письменной форме по билетам</div>
+                    <div class="divTableCell"></div>
+                    <div class="divTableCell"></div>
+                    <div class="divTableCell"></div>
+                    <div class="divTableCell">0-30</div>
+                </div>
+            </div>
+
+        </div>
+        <br />
+    </form>
+
+}
+
+@*
+<script src="~/lib/ckeditor5/src/ckeditor.js"></script>
+<script src="~/lib/ckeditor5-build-inline/ckeditor.js"></script>
+@if (CountSem != 0)
+{
+    <button onclick="addTask()" class="btn check-btn btn-primary">Сохранить</button>
+}
+@for (int i = 0; i < CountSem; i++)
+{
+    //лист тасков нужно отфильтровать по разделам которые есть
+    <h5>
+        Для <strong> @Model.NumSemList?[i]</strong> семестра
+    </h5>
+    int t = Model.Razdels.Where(p => p.Semestr == Model.NumSemList?[i]).Count();
+    @for (int j = 0; j < Model.Razdels.Count(); j++)
+    {
+        <form class="editorForm">
+            <strong>Перечень корольнах заданий для ТК@(j + 1)</strong>
+            <label>(@Model.Razdels[j].NameChapter)</label>
+            <input hidden class="chapterId" asp-for="@Model.Razdels[j].Id"/>
+            <div class="border border-primary ">
+                <div class="editor">
+                    @if (Model.ListOfControlTasks.Count > 0)
+                    {
+                        <div class="redactorContent">
+                            @Html.Raw(@Model.ListOfControlTasks[j].StrokaHTML)
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="redactorContent">Для каждого текущего контроля приводим примеры заданий (не менее 10) разного уровня сложности</div>
+                    }
+                </div>
+            </div>
+        </form>
+    }
+    <br />
+}
+*@
+@if (CountSem != 0)
+{
+
+    <h3>Перечень контрольных заданий</h3>
+    <div class="container">
+        <div class="card border-info mb-3">
+            <h5 class="card-header">Инструкция по использованию</h5>
+            <div class="card-body">
+                <a href="#instructionCollapse" class="btn btn-secondary btn-sm mb-2" data-bs-toggle="collapse">Показать инструкцию</a>
+                <br />
+                <div id="instructionCollapse" class="collapse">
+                    <h6 class="card-title">Заполнение "Перечень контрольных заданий"</h6>
+                    <hr />
+                    <p class="card-text">Шаг 1.1: Скачайте пример.</p>
+                    <p class="card-text">Шаг 1.2: Откройте его и заполните по примеру (не удаляя заголовок) перечень контрольных заданий или иные материалы, необходимые для оценки знаний, умений и навыков.</p>
+                    <p class="card-text">Шаг 1.3: Сохраните и закройте его.</p>
+                    <p class="card-text">Шаг 1.4: После того, как вы сформируете документ, нажмите "Загрузить ПКЗ".</p>
+                    <p class="card-text">Шаг 1.5: В открывшемся окне выберите ранее сформированный документ и загрузите его.</p>
+                    <br /> 
+                    <h6 class="card-title">Если вы хотите изменить существующий файл.</h6>
+                    <hr />
+                    <p class="card-text">Шаг 2.1: Нажмите "Открыть ПКЗ"</p>
+                    <p class="card-text">Шаг 2.2: Измените скаченный документ.</p>
+                    <p class="card-text">Шаг 2.3: Загрузите файл следуюя с "Шаг 1.2"</p>
+                    <br />
+                    <h6 class="card-title">Если вы хотите удалить существующий файл.</h6>
+                    <hr />
+                    <p class="card-text">Шаг 3.1: Нажмите "Удалить ПКЗ"</p>
+                    <p class="card-text">Шаг 3.2: Файл будет успешно удален, если был ранне загружен.</p>
+
+                </div>
+                <br />
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div class="btn-group">
+                                <button class="btn btn-primary me-2" id="BtnDownloadTemplate" type="button">Скачать пример ПКЗ</button>
+                                <button class="btn btn-primary me-2" type="button" data-bs-toggle="modal" data-bs-target="#myModalUploadFile">Загрузить ПКЗ</button>
+                                <button class="btn btn-primary me-2" id="BtnDownload" type="button">Открыть ПКЗ</button>
+                                <button class="btn btn-danger" id="BtnDelete" type="button">Удалить ПКЗ</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+}
+
+<!-- Модальное окно загрузки файла-->
+<div class="modal fade" id="myModalUploadFile" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">Загрузка файла</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="UploadFileFormPKZ" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="file">Выберите файл:</label>
+                        <input type="file" name="file" class="form-control-file" />
+                    </div>
+                    <button type="submit" id="btnUploadPKZ" class="btn btn-success">Загрузить</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@if (CountSem != 0)
+{
+    <form asp-action="AddRatingScale" method="post">
+        <input hidden asp-for="@Model.Rating.Id" />
+        <div class="container">
+        <input class="btn check-btn btn-primary" id="subButton" type="submit" value="Сохранить" />
+            <br />Оценка <strong>«отлично»</strong> выставляется за выполнение
+            <br /><textarea asp-for=@Model.Rating.Excellent class="form-control" style="height: 5em" placeholder="Пример: расчетных работ в семестре; тестовых заданий; глубокое понимание технологических методов расчета норм расхода материалов,  полные и содержательные ответы на вопросы билета (теоретическое и практическое задание);"></textarea>
+            <br />Оценка <strong>«хорошо»</strong> выставляется за выполнение
+            <br /><textarea asp-for=@Model.Rating.Good class="form-control" style="height: 5em" placeholder="Пример: расчетных работ в семестре; тестовых заданий; понимание технологических методов расчета норм расхода материалов,  ответы на вопросы билета (теоретическое или практическое задание);"></textarea>
+            <br />Оценка <strong>«удовлетворительно»</strong>  выставляется за выполнение
+            <br /><textarea asp-for=@Model.Rating.Satisfactory class="form-control" style="height: 5em" placeholder="Пример: расчетных работ в семестре и  тестовых заданий;"></textarea>
+            <br />Оценка <strong>«неудовлетворительно»</strong> выставляется за
+            <br /><textarea asp-for=@Model.Rating.UnSatisfactory class="form-control" style="height: 5em" placeholder="Пример: слабое и неполное выполнение расчетных работ в семестре и  тестовых заданий."></textarea>
+        </div>
+    </form>
+
+}
+
+

@@ -1,0 +1,46 @@
+﻿@using NonFactors.Mvc.Grid
+@using RPD.Models.Home;
+@model List<MainTableUchPlan>
+
+<link rel="stylesheet" href="~/css/tablecss.css" asp-append-version="true" />
+@{int row = 1;}
+@(
+Html
+    .Grid(Model)
+    .Build(columns =>
+    {
+        @*columns.Add(model => Html.CheckBox("Check_" + model.IdLit, model.Chois));*@
+        columns.Add().RenderedAs((model, row) => row + 1).Titled("#").Css("text-center");
+        columns.Add(model => model.ChekRPD).AppendCss("ChekedRPD").IsHidden = true;
+        columns.Add(model => model.IdRpd).AppendCss("Idrpd").IsHidden = true;
+        columns.Add(model => model.NameDiscip).Titled("Дисциплина").Filterable(GridFilterCase.Lower).UsingDefaultFilterMethod("consists-of");
+        columns.Add(model => model.ToStringNameUchPlan()).Titled("Учебный план").Filterable(true).Filterable(GridFilterCase.Lower).UsingDefaultFilterMethod("consists-of").Encoded(false).Name = "UP";
+        columns.Add(model => model.ToStringUsersAccess()).Titled("Исполнители").Filterable(true).Filterable(GridFilterCase.Lower).UsingDefaultFilterMethod("consists-of").Encoded(false).AppendCss("UsersDev").Name = "ISP";
+        columns.Add(model => model.DateTimeCreater).Titled("Срок").Sortable(true).AppendCss("TimeCreator").Formatted("{0:d}");
+
+        columns.Add(model => model.Status).Titled("Статус").AppendCss("StatusRpd").Filterable(GridFilterCase.Lower)
+        .UsingFilterOptions(new[]
+        {
+            new SelectListItem(),
+            new SelectListItem { Value = "Создано", Text = "Создано" },
+            new SelectListItem { Value = "Не создано", Text = "Не создано" },
+            new SelectListItem { Value = "Завершено", Text = "Завершено" },
+            new SelectListItem { Value = "Заблокировано", Text = "Заблокировано" },
+        });
+        columns.Add(model => model.ToStringComment()).Titled("Коментарии").AppendCss("commentcell").Encoded(false);
+
+
+    })
+    .Id("my-grid")
+    .Using(GridFilterMode.Row)
+    .Empty("No data found")
+    .Filterable()
+    .Css("table")
+    .AppendCss("table-hover")
+    .Sortable()
+    .RowAttributed(model => new
+    {
+        @class = "Main",
+        @onclick = $"ClickMain(event, {model.IdStroka})",
+    })
+    )

@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="RPD.Service.DbService">
+    <Position X="14" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAAIAEEAAAAAAQAAAAAAABAAAABAAAA=</HashCode>
+      <FileName>Service\DbService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPD.ViewModel.ContentViewModel">
+    <Position X="8" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\ContentViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPD.ViewModel.MaterialViewModel">
+    <Position X="20.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAABAAAAAAAAAEACQAAAgAACAAAAAAAUAAAEAAA=</HashCode>
+      <FileName>ViewModel\MaterialViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPD.ViewModel.MtodViewModel">
+    <Position X="2.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\MtodViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPD.ViewModel.RP_1ViewModel">
+    <Position X="6.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACCAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\RP_1ViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPD.ViewModel.RpdViewModel">
+    <Position X="8" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>ViewModel\RpdViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPD.ViewModel.TitulViewModel">
+    <Position X="8" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEgAAAAAAAAAAAAAAAAAQAAAAAAAAAAAgAACAAAA=</HashCode>
+      <FileName>ViewModel\TitulViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPD.Models.Titul.CompilersModel">
+    <Position X="4.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQQAAAAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>Models\Titul\CompilersModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPD.Models.Titul.DateModel">
+    <Position X="9.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABIAAAAAgAAAAAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Titul\DateModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPD.Models.Titul.FGOSModel">
+    <Position X="8" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAAQAAAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Titul\FGOSModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPD.Models.Titul.Kompetenci">
+    <Position X="6.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAABAAAAAAAAAAAAAAAAgAAAAAAQAAAAAA=</HashCode>
+      <FileName>Models\Titul\Kompetenci.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPD.Models.Titul.TitulPlanModel">
+    <Position X="4.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACIAAAAAAAACAAAAAAAAAABAAAARAAgCAAAAA=</HashCode>
+      <FileName>Models\Titul\TitulPlanModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPD.Models.Titul.TitulStartModel">
+    <Position X="20.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAABGAABAAIAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Titul\TitulStartModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPD.Models.Rpd.Komp">
+    <Position X="16.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAEAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\RP_2\RpdModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPD.Models.Rpd.KompDes">
+    <Position X="2.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAADAAAAAAAAIAAAAAAAAAEAAAAAQAAAEAAAAAAAAAA=</HashCode>
+      <FileName>Models\RP_2\RpdModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPD.Models.RP_1.KompetDiscTable">
+    <Position X="4.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAEAAAA=</HashCode>
+      <FileName>Models\RP_1\KompetDiscTable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPD.Models.RP_1.RP_1TextModel">
+    <Position X="4.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAIAAIAAAAAAA=</HashCode>
+      <FileName>Models\RP_1\RP_1TextModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPD.Models.Mtod.ClassRoomModel">
+    <Position X="2.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAIAQAQAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Mtod\ClassRoomModel .cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPD.Models.Content.ContentModel">
+    <Position X="6.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAEAAAAAAAAAAAAAAAAAIAAAAAAAAA=</HashCode>
+      <FileName>Models\Content\ContentModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPD.Models.Content.ThemeModel">
+    <Position X="2.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAQAAAAEAAAAAAAAAAAAAAAAAEAEAAAA=</HashCode>
+      <FileName>Models\Content\ThemeModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPD.Models.Content.TypeWorkModel">
+    <Position X="9.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAgAAAAAAAAAEAAAAABAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Content\TypeWorkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPD.Models.Material.EvaluationTools">
+    <Position X="4.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAABAAAAAAAAAAAAQABAAAAAAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>Models\Material\EvaluationTools.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPD.Models.Material.Technological_mapOther">
+    <Position X="18.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAgACAAAAAAAAAAAAAAAAABAQAAAAAAAAA=</HashCode>
+      <FileName>Models\Material\Technological_mapOther.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPD.Models.Material.EvaluationToolsOther">
+    <Position X="6.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAABAAAAAACAAAAAQABAAAAAAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>Models\Material\EvaluationToolsOther.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPD.Models.Material.Technological_map">
+    <Position X="9.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAgAAAAAAAAAAAAAAAAAAABAQAAAAAAAAA=</HashCode>
+      <FileName>Models\Material\Technological_map.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPD.Models.MaterialOCModel">
+    <Position X="9.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABCAAAAAAAAAAAAAAgIAAAAAQAAAAAAAAACAAAAQAA=</HashCode>
+      <FileName>Models\MaterialOCModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPD.Models.ErrorViewModel">
+    <Position X="2.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ErrorViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPD.Controllers.HomeController">
+    <Position X="12.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAQAQAAAAAAACAgIAAAARAAAAEAAAgAAAA=</HashCode>
+      <FileName>Controllers\HomeController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RPD.Controllers.MaterialOCController">
+    <Position X="8" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAAABAAAQAAAAAQGBAEAAABEAAEAgAAA=</HashCode>
+      <FileName>Controllers\MaterialOCController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,31 @@
+﻿@using RPD.Models.BD_Second_model;
+@using RPD.Models.Home;
+@using RPD.ViewModel;
+
+@model HomeUsersAccessViewModel
+
+
+<div>
+    <div class="tab-tr-modal">
+        <div class="col">
+            <p class="mb-0">Дисциплина: <strong>@Model.strokaMmisModel.NameDiscip</strong></p>
+        </div>
+        <br />
+        <div class="col">
+            <p class="mb-1">Дата окончания создания:</p>
+            <input class="CreationTimeLimits  form-control-sm" style="font-size: 1rem;" asp-for="СreationTimeLimits" type="date" />
+        </div>
+
+    
+    <br />
+    <p>Выбор исполнителей:</p>
+    <select onclick="Select-modal" asp-for="ChoisUsersAccess"
+            class="UsersAll form-select-sm form-select "
+            id="@Model.strokaMmisModel.Id"
+            multiple
+            style="display: inline-block; width:400px ;flex-grow: 1"
+            asp-items="@(new SelectList(Model.usersAccesses, nameof(UsersAccess.Id), nameof(UsersAccess.Name)))">
+    </select>
+    </div>
+</div>
+
